@@ -14,3 +14,4 @@ export default function EmptyState({ title = 'No records found', description, ac
     </div>
   );
 }
+

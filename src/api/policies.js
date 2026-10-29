@@ -21,3 +21,4 @@ export const createPolicy = async ({ customerId, startDate, endDate, sumInsured 
     auth: true
   });
 };
+

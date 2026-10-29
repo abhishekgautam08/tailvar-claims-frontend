@@ -6,3 +6,4 @@ export const listCustomers = async () => {
     auth: true
   });
 };
+

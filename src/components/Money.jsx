@@ -12,3 +12,4 @@ export default function Money({ amount, className = '' }) {
     </span>
   );
 }
+

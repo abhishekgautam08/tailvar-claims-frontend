@@ -111,3 +111,4 @@ tailvar-claims-frontend/
 4. **Strict Rules Adherence**:
    - Zero `git` commands executed.
    - No hardcoded secrets.
+

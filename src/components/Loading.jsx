@@ -10,3 +10,4 @@ export const Loading = ({ message = 'Loading...' }) => {
 };
 
 export default Loading;
+

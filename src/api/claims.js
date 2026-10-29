@@ -36,3 +36,4 @@ export const decideClaim = async (id, decision) => {
     auth: true
   });
 };
+
