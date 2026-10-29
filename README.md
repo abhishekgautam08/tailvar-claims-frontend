@@ -49,6 +49,21 @@ Seed the backend database first with `npm run seed` in the backend folder. You c
 
 ---
 
+## 🌐 Deployment (Vercel)
+
+The frontend is deployed to Vercel with single-page application (SPA) routing:
+
+- **Live URL**: [https://tailvar-claims-frontend.vercel.app](https://tailvar-claims-frontend.vercel.app)
+- **Framework Preset**: `Vite`
+- **Root Directory**: `tailvar-claims-frontend` (or project root if deployed from subfolder)
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **SPA Rewrites**: Defined in `vercel.json` (`rewrites: [{ source: "/(.*)", destination: "/index.html" }]`) ensuring client-side routes like `/admin` and `/customer` survive browser refreshes.
+- **Environment Variables**:
+  - `VITE_API_BASE_URL`: `https://tailvar-claims-backend.onrender.com/api`
+
+---
+
 ## 📁 Project Structure
 
 ```
