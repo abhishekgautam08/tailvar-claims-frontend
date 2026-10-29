@@ -1068,6 +1068,280 @@ code {
 }
 
 /* ==========================================================================
+   Admin Console Styles
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+/* --- Summary Strip --- */
+
+.summary-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.summary-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.summary-label {
+  font-size: 0.725rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.summary-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.summary-value-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.summary-money {
+  font-size: 1.25rem;
+}
+
+.summary-sub {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+}
+
+.summary-card-highlight {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+}
+
+.pending-value {
+  color: #b45309;
+}
+
+.pending-indicator-pill {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.remaining-metric {
+  color: #047857;
+}
+
+/* --- Admin Filters & Actions --- */
+
+.admin-claims-filter-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.filter-group-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn-pending-shortcut {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-pending-shortcut:hover {
+  background-color: #fde68a;
+}
+
+.btn-pending-shortcut.active-shortcut {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border-color: #d97706;
+}
+
+.filter-customer-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.filter-label {
+  font-size: 0.825rem;
+  color: #475569;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.filter-select {
+  width: auto;
+  min-width: 170px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+}
+
+.customer-name-text {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.exhausted-text {
+  color: #991b1b;
+  font-weight: 700;
+}
+
+/* Actions Column & Inline Confirm */
+
+.actions-cell {
+  min-width: 170px;
+}
+
+.actions-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-approve {
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+}
+
+.btn-approve:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.btn-reject {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+}
+
+.btn-reject:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.decided-placeholder {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.row-confirming {
+  background-color: #fffbeb !important;
+}
+
+.inline-confirm-box {
+  background-color: #ffffff;
+  border: 1px solid #f59e0b;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.75rem;
+  box-shadow: var(--shadow-md);
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.confirm-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.confirm-title {
+  font-size: 0.85rem;
+  color: #0f172a;
+}
+
+.confirm-impact {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.confirm-btn-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-approve-action {
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-approve-action:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.btn-reject-action {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-reject-action:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+/* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
 
@@ -1082,9 +1356,14 @@ code {
     justify-content: space-between;
   }
 
-  .customer-page-header {
+  .customer-page-header,
+  .admin-page-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .summary-strip {
+    grid-template-columns: 1fr;
   }
 
   .form-row-2 {
@@ -1092,6 +1371,11 @@ code {
   }
 
   .filter-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-group-wrap {
     flex-direction: column;
     align-items: flex-start;
   }
