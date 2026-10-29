@@ -648,6 +648,426 @@ code {
 }
 
 /* ==========================================================================
+   Customer Portal Layout & Components
+   ========================================================================== */
+
+.customer-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+}
+
+.refresh-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+.refresh-icon.spinning {
+  animation: spin 0.8s linear infinite;
+}
+
+.dashboard-error-wrapper {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.dashboard-section {
+  margin-bottom: 2.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.section-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+/* --- Policy Cards --- */
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.policy-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.policy-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-md);
+}
+
+.policy-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.policy-id-badge {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #bfdbfe;
+}
+
+.policy-fully-utilised-badge {
+  background-color: var(--color-rejected-bg);
+  color: var(--color-rejected-text);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.policy-dates {
+  font-size: 0.85rem;
+  color: #475569;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.calendar-icon {
+  font-size: 0.95rem;
+}
+
+.policy-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  background-color: #f8fafc;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: 1.25rem;
+}
+
+.policy-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 0.725rem;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.metric-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.metric-remaining {
+  grid-column: span 2;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.remaining-highlight {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.policy-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.utilised-note {
+  font-size: 0.75rem;
+  color: var(--color-rejected-text);
+  font-weight: 600;
+}
+
+/* --- Claim Form --- */
+
+.claim-form-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.claim-form {
+  margin-top: 1.25rem;
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-select {
+  cursor: pointer;
+}
+
+.required-star {
+  color: #dc2626;
+  margin-left: 0.2rem;
+}
+
+.input-rupee-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.rupee-symbol {
+  position: absolute;
+  left: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  pointer-events: none;
+}
+
+.form-input-rupee {
+  padding-left: 2rem !important;
+}
+
+.remaining-helper-box {
+  background-color: #f8fafc;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.helper-text {
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.helper-remaining-si {
+  color: #047857;
+  font-weight: 700;
+  margin-left: 0.25rem;
+}
+
+.helper-exhausted-badge {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.form-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.form-helper-text {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 0.35rem;
+}
+
+.alert-focus-wrapper:focus {
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.empty-policy-notice {
+  margin-top: 0.75rem;
+  padding: 1.25rem;
+  background-color: #f8fafc;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* --- Claims Table & Toolbar --- */
+
+.claims-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.filter-btn-group {
+  display: flex;
+  gap: 0.35rem;
+  background-color: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+}
+
+.filter-btn {
+  border: none;
+  background-color: transparent;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  color: #475569;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-btn:hover {
+  color: #1e293b;
+}
+
+.filter-btn.active {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-count {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+}
+
+.table-responsive:focus-visible {
+  outline: 2px solid var(--color-primary);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.data-table th {
+  background-color: #f8fafc;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #475569;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.claim-id-text {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.policy-id-text {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.claim-amount-text {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ==========================================================================
    Responsive Adjustments
    ========================================================================== */
 
@@ -660,6 +1080,20 @@ code {
   .header-user-nav {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .customer-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .login-card {
