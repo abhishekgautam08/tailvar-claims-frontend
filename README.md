@@ -109,9 +109,9 @@ tailvar-claims-frontend/
 ## 🔐 Architecture & Features
 
 1. **Token & Session Management**:
-   - Stores JWT token in `localStorage` under key `tailvar_auth_token`.
-   - On initial load or refresh, `AuthContext` calls `GET /api/auth/me` to validate the token and restore the user's session without jarring page flicker.
-   - If a request receives a `401 Unauthorized` response, the client automatically clears the local token and redirects to `/login?expired=1` with an informative banner.
+   - Stores JWT token in browser cookies under key `tailvar_auth_token` (not `localStorage`).
+   - On initial load or refresh, `AuthContext` calls `GET /api/auth/me` to validate the cookie token and restore the user's session without jarring page flicker.
+   - If a request receives a `401 Unauthorized` response, the client automatically clears the cookie and redirects to `/login?expired=1` with an informative banner.
 
 2. **Role-Based Access Control (RBAC)**:
    - `<ProtectedRoute>` ensures only logged-in users enter the private routes.

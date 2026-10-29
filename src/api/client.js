@@ -9,27 +9,74 @@ export class ApiError extends Error {
 
 export const TOKEN_STORAGE_KEY = 'tailvar_auth_token';
 
-export const getStoredToken = () => {
-  return localStorage.getItem(TOKEN_STORAGE_KEY);
+/**
+ * Cookie helper functions:
+ * Stores and manages authentication token in browser cookies (not localStorage).
+ */
+export const getCookie = (name) => {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
 };
 
+export const setCookie = (name, value, days = 1) => {
+  if (typeof document === 'undefined') return;
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  const isSecure = typeof window !== 'undefined' && window.location.protocol === 'https:';
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax${isSecure ? '; Secure' : ''}`;
+};
+
+export const removeCookie = (name) => {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+};
+
+/**
+ * Retrieves the stored authentication token from cookies.
+ */
+export const getStoredToken = () => {
+  return getCookie(TOKEN_STORAGE_KEY);
+};
+
+/**
+ * Saves the authentication token in cookies (not localStorage) and clears legacy localStorage.
+ */
 export const setStoredToken = (token) => {
   if (token) {
-    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    setCookie(TOKEN_STORAGE_KEY, token, 1);
   } else {
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    removeStoredToken();
+  }
+  // Clear any legacy localStorage token to ensure localStorage is not used
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+    } catch (e) {
+      // Ignore if localStorage is restricted
+    }
   }
 };
 
+/**
+ * Evicts the authentication token from cookies.
+ */
 export const removeStoredToken = () => {
-  localStorage.removeItem(TOKEN_STORAGE_KEY);
+  removeCookie(TOKEN_STORAGE_KEY);
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+    } catch (e) {
+      // Ignore
+    }
+  }
 };
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 /**
  * Universal API request wrapper around fetch.
- * - Injects Base URL and Authorization Bearer token.
+ * - Injects Base URL and Authorization Bearer token from cookie.
+ * - Attaches credentials: 'include' for cookie transport.
  * - Handles non-2xx status, network errors, and session expiry.
  *
  * @param {string} path - API endpoint path (e.g. "/auth/login", "/policies")
@@ -57,7 +104,8 @@ export const request = async (path, options = {}) => {
 
   const fetchOptions = {
     method,
-    headers: reqHeaders
+    headers: reqHeaders,
+    credentials: 'include'
   };
 
   if (body !== undefined && body !== null) {
